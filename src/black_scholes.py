@@ -15,7 +15,7 @@ def black_scholes_call(S: float, K: float, T: float, r: float, sigma: float) -> 
     Returns:
         C (float): Current price of call option.
     """
-
+    
     d1 = (np.log(S/K) + (r+(sigma**2)/2)*T)/(sigma*(T**0.5))
     d2 = d1 - (sigma*(T**0.5))
     C = (S*norm.cdf(d1)) - (K*np.exp(-r*T)*norm.cdf(d2))

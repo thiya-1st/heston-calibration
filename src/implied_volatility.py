@@ -1,4 +1,5 @@
 from src.black_scholes import black_scholes_call
+import pandas as pd
 
 def implied_volatility(
         S: float, 
@@ -51,3 +52,32 @@ def implied_volatility(
         raise RuntimeError("Maximum number of iterations reached.")
     else:
         raise ValueError("Root is not bracketed by the initial volatility bounds.")
+
+def compute_implied_vols(S: float, T: float, r: float, data: pd.DataFrame) -> pd.DataFrame:
+    """
+    Calculates the implied volatility for each option in the DataFrame and appends 
+    it as a new column.
+
+    Parameters:
+        S (float): The current stock price.
+        T (float): Time to expiry in years.
+        r (float): The continuously compounded risk-free interest rate.
+        data (pd.DataFrame): A DataFrame with columns:
+            - strike: The strike prices of the call options.
+            - market_price: The mid-price of the bid-ask spread.
+
+    Returns:
+        data (pd.DataFrame): The input DataFrame with an additional column:
+            - implied_vol: The implied volatility for each option, or NaN if it 
+              could not be computed.
+    """
+    implied_vols = []
+    for _, row in data.iterrows():
+        try:
+            implied_vol = implied_volatility(S, row["strike"], T, r, row["market_price"])
+        except (ValueError, RuntimeError):
+            implied_vol = None
+        implied_vols.append(implied_vol)
+    data["implied_vol"] = implied_vols
+
+    return data

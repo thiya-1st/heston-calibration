@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from src.black_scholes import black_scholes_call
 from src.implied_volatility import implied_volatility
 
-def implied_vol_curve(
+def bsm_implied_vol_curve(
         S: float, 
         T: float, 
         r: float, 
@@ -38,10 +38,10 @@ def implied_vol_curve(
     plt.plot(valid_strikes, implied_vols)
     plt.xlabel("Strike prices")
     plt.ylabel("Implied volatility")
-    plt.title("Implied volatility curve")
+    plt.title("BSM implied volatility curve")
     plt.grid(True)
     plt.ylim(0, 0.5)
     plt.show()
     
 if __name__ == "__main__":
-    implied_vol_curve(100, 1, 0.05, 0.2, 80, 130, 1000)
+    bsm_implied_vol_curve(100, 1, 0.05, 0.2, 80, 130, 1000)
