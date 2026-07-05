@@ -21,20 +21,21 @@ def get_market_data(ticker: str, expiry_choice: int) -> tuple[float, float, pd.D
     company = yf.Ticker(ticker)
     expiry = company.options[expiry_choice]
     call_chain = company.option_chain(expiry).calls
+    filtered_chain = call_chain[call_chain["volume"] > 10]
     S = company.fast_info["lastPrice"]
 
     expiry_date = datetime.strptime(expiry, "%Y-%m-%d")
     now = datetime.now()
     T = (expiry_date - now).total_seconds() / (365 * 24 * 60 * 60)
 
-    strikes = call_chain["strike"]
-    bids = call_chain["bid"]
-    asks = call_chain["ask"]
+    strikes = filtered_chain["strike"]
+    bids = filtered_chain["bid"]
+    asks = filtered_chain["ask"]
     market_price = (bids + asks) / 2
 
     data = pd.DataFrame({
         "strike": strikes, 
         "market_price": market_price
-    })
+    }).reset_index(drop = True)
 
     return S, T, data

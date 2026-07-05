@@ -109,4 +109,11 @@ where P1 and P2 are probabilities computed using Fourier integrals:
 - Heston assumes a stochastic volatility process, leading to a more flexible distribution.
 
 Questions:
-- arraylike?
+-
+
+Key changes to make:
+- newton raphson method instead of bisection method
+- compare implied vols for heston model instead of prices
+- monte carlo simulation
+- better filtering of market data
+- weighted calibration
