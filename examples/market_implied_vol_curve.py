@@ -2,12 +2,9 @@ from src.market_data import get_market_data
 from src.implied_volatility import compute_implied_vols
 import matplotlib.pyplot as plt 
 
-def market_implied_vol_curve(ticker: str):
+def market_implied_vol_curve(ticker: str) -> None:
     """
     Plots the implied volatility using market data of an option against strike prices.
-
-    Parameters:
-        ticker (str): The ticker symbol of the company.
     """
     
     S, T, chain_data  = get_market_data(ticker, 1)
@@ -18,6 +15,8 @@ def market_implied_vol_curve(ticker: str):
     plt.ylabel("Implied volatility")
     plt.title("Market implied volatility curve")
     plt.grid(True)
+
+    plt.savefig("figures/market_iv.png", dpi=300)
     plt.show()
 
 if __name__ == "__main__":

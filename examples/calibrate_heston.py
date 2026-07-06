@@ -1,11 +1,15 @@
 from src.market_data import get_market_data
 from src.heston_calibration import calibration_loss, calibration_rmse
 from scipy.optimize import minimize
+import numpy as np
 
-def optimise_heston(ticker: str):
+def optimise_heston(ticker: str) -> tuple[np.ndarray, float, float]:
+    """
+    Calibrates Heston model parameters to market option prices using L-BFGS-B optimisation.
+    """
     S, T, data = get_market_data(ticker, 1)
     r = 0.05
-    x0 = [0.04, 0.04, 2, 0.3, -0.7]
+    x0 = [0.04, 0.04, 2, 0.3, -0.7] # initial values
 
     bounds = [
     (0.001, 1),     # v0

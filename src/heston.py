@@ -2,7 +2,7 @@ import numpy as np
 from src.parameters import HestonParameters 
 
 def characteristic_function(
-        u: complex | float, #float?
+        u: complex | float,
         S: float,
         T: float,
         r: float,

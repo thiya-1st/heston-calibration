@@ -14,15 +14,6 @@ def bsm_implied_vol_curve(
     ) -> None:
     """
     Plots the implied volatility (calculated using BSM) of an option against strike prices.
-
-    Parameters:
-        S (float): Current stock price.
-        T (float): Time to expiry in years.
-        r (float): risk-free interest rate.
-        sigma (float): volatility
-        strike_low (float): Lower bound of strike price
-        strike_high (float): Upper bound of strike_price
-        intervals (int): Number of strike prices to use
     """
     strike_prices = np.linspace(strike_low, strike_high, intervals)
     option_prices = black_scholes_call(S, strike_prices, T, r, sigma)
@@ -41,6 +32,8 @@ def bsm_implied_vol_curve(
     plt.title("BSM implied volatility curve")
     plt.grid(True)
     plt.ylim(0, 0.5)
+
+    plt.savefig("figures/black_scholes_iv.png", dpi=300)
     plt.show()
     
 if __name__ == "__main__":

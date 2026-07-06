@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 
-
 @dataclass
 class HestonParameters:
     v0: float

@@ -2,10 +2,6 @@ from src.heston_pricing import heston_call_price
 from src.parameters import HestonParameters
 import pytest
 
-@pytest.fixture
-def price():
-    return heston_call_price(100, 100, 1, 0.05, DEFAULT_PARAMS)
-
 DEFAULT_PARAMS = HestonParameters(
     v0 = 0.04,
     theta = 0.04,
@@ -13,6 +9,10 @@ DEFAULT_PARAMS = HestonParameters(
     xi = 0.3,
     rho = -0.7,
 )
+
+@pytest.fixture
+def price():
+    return heston_call_price(100, 100, 1, 0.05, DEFAULT_PARAMS)
 
 def test_heston_price_is_positive(price):
     assert price > 0

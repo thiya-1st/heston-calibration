@@ -2,7 +2,6 @@ import numpy as np
 from src.black_scholes import black_scholes_call
 import pytest
 
-
 def test_black_scholes_scalar():
     assert black_scholes_call(100, 110, 1, 0.05, 0.2) == pytest.approx(6.040088129724239)
     

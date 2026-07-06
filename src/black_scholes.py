@@ -7,10 +7,10 @@ def black_scholes_call(S: float, K: float, T: float, r: float, sigma: float) -> 
 
     Parameters:
         S (float): Current stock prices.
-        K (float): The strike price of the call option.
+        K (float): Strike price.
         T (float): Time to expiry in years.
-        r (float): risk-free interest rate.
-        sigma (float): volatility
+        r (float): Continuously compounded risk-free interest rate.
+        sigma (float): Volatility
 
     Returns:
         C (float): Current price of call option.

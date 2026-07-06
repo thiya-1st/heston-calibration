@@ -1,6 +1,7 @@
 import yfinance as yf
 from datetime import datetime
 import pandas as pd
+import numpy as np
 
 def get_market_data(ticker: str, expiry_choice: int) -> tuple[float, float, pd.DataFrame]:
     """
@@ -21,7 +22,11 @@ def get_market_data(ticker: str, expiry_choice: int) -> tuple[float, float, pd.D
     company = yf.Ticker(ticker)
     expiry = company.options[expiry_choice]
     call_chain = company.option_chain(expiry).calls
-    filtered_chain = call_chain[call_chain["volume"] > 10]
+    filtered_chain = call_chain[
+        (call_chain["volume"] > 10) 
+        & (call_chain["bid"] > 0) 
+        & (call_chain["ask"] > call_chain["bid"])
+    ]
     S = company.fast_info["lastPrice"]
 
     expiry_date = datetime.strptime(expiry, "%Y-%m-%d")

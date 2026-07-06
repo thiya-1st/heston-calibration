@@ -18,7 +18,7 @@ def implied_volatility(
 
     Parameters:
         S (float): Current stock price.
-        K (float): The strike price of the call option.
+        K (float): Strike price.
         T (float): Time to expiry in years.
         r (float): risk-free interest rate.
         market_price (float): Current market price of the call option.
@@ -39,7 +39,7 @@ def implied_volatility(
     elif abs(f_high) < tolerance:
         return vol_high
     elif f_low < 0 and f_high > 0: # As volatility increases, f increases
-        for i in range(max_iterations):
+        for _ in range(max_iterations):
             vol_mid = (vol_low + vol_high)/2
             bs_mid = black_scholes_call(S, K, T, r, vol_mid)
             f_mid = bs_mid - market_price
